@@ -23,7 +23,7 @@ public class BancoDados {
           //define o driver a ser usaado
           Class.forName("com.mysql.jdbc.Driver");//banco de dados mysql, se fosse usar outro ai definiria aqui
           //conecta com O BD
-          conexao = DriverManager.getConnection("jdbc:mysql://localhost/empresasjsf?user=root&password=");
+          conexao = DriverManager.getConnection("jdbc:mysql://localhost/carros?user=root&password=");
           //cria o objeto do tipo statement, este objeto para manutenção das tabelas
           s = conexao.createStatement();
           //retorna o resultado
