@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
+    <h:head>
+        <title>CORRIDAS - Cadastro de Corrida</title>
+       <!-- <p:column rowspan="3">
+            <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
+        </p:column>
+       -->
+       <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
+                    effect="easeInStrong" circular="true" pageLinks="3" itemStyleClass="photo">
+           <p:graphicImage value="IMG/BannerTopo.jpg" width="100%" height="100%"/>
+        </p:carousel>
+    </h:head>
+    <h:body>
+        <h:form>  
+            <p:growl id="messages"/>
+            <p:menubar>
+                <p:menuitem value="Inicio" icon="ui-icon-home" url="faces/index.xhtml"/>
+                <p:submenu label="Cadastros" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Veiculo" url="faces/veiculos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Piloto" url="faces/pilotos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinador" url="faces/patrocinadores.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Autodromo" url="faces/autodromos.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Movimentações" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Equipe" url="faces/equipes.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocínios" url="faces/equipe_patrocinador.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Campeonatos" url="faces/campeonato.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Vendas" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Venda de ingressos" url="faces/venda.xhtml" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+        <p:panel id="panelcadastro" header="Formulário de Cadastro de Patrocinador" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Nome:"/>
+                    <p:inputText id="pat_nome" value="#{patrocinadorControll.patrocinador.pat_nome}"
+                                 required="true" requiredMessage="O nome do patrocinador deve ser preenchido"/>
+                    <p></p>
+                    <p:message for="pat_nome"/>
+                    
+                    <h:outputText value="CNPJ"/>
+                    <p:inputText id="pat_cnpj" value="#{patrocinadorControll.patrocinador.pat_cnpj}"
+                                 required="true" requiredMessage="O CNPJ do patrocinador deve ser preenchido"/>
+                    <p:message for="pat_cnpj"/>
+                    <p></p>                    
+                    
+
+                    <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{patrocinadorControll.controllCadastraPatrocinador}" icon="ui-icon-disk" ajax="false"/>
+                    <p:commandButton id="alterar" value="Alterar" action="#{patrocinadorControll.controllAlteraPatrocinador}" icon="ui-icon-pencil" ajax="false"/>
+                    <h:outputText value=""/> <!--Coloca a mensagem de alterado ou excluido com sucesso na seguda coluna não espaçando demais os campos de texto -->
+                    <h:outputText value="#{patrocinadorControll.mensagem}"/>
+                    <p:growl id="msg" showDetail="true" sticky="true"/>
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:fieldset id="panellistagem" legend="Patrocinadores Cadastrados" toggleable="true">
+            <p:dataTable value="#{patrocinadorControll.dados}" var="l" paginator="true" rows="5">
+                <p:column><h:outputText value="#{l.pat_codigo}"/> </p:column>
+                <p:column><h:outputText value="#{l.pat_nome}"/> </p:column>
+                <p:column><h:outputText value="#{l.pat_cnpj}"/> </p:column>
+                <p:column>
+                    <h:form>
+                        <p:commandButton value="Excluir" icon="ui-icon-trash" ajax="false" action="#{patrocinadorControll.controllExcluipatrocinador}" onclick="if (confirm('Deseja realmente excluir este patrocinador?')) {
+                                    return true;
+                                }
+                                    return false;"/>
+                    </h:form>
+                </p:column>
+
+                <p:column>
+                    <h:form>
+                        <p:commandButton value="Editar" icon="ui-icon-pencil" ajax="false" action="#{patrocinadorControll.controllEditar}"/>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </h:body>
+</html>
