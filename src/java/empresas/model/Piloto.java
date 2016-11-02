@@ -20,7 +20,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class Piloto extends BancoDados implements Serializable {
  
- private int pil_codigo; //este vai ser autoincremento
+ private int pil_codigo; 
  private int pil_data_nascimento; 
  private String pil_uf_naturalidade;
  private String pil_cpf;
@@ -68,11 +68,8 @@ public class Piloto extends BancoDados implements Serializable {
  
    public String cadastraPilotos()
     {
-        
-        //String valores = "'"+nome+"','"+cpf+"','"+email+"',"+salariobase+",'"+dataadmissao+"',"+id_cargo+","+id_empresa+","+id_cidade+","+id_estado+"";
-        
-        //String valores = "+pil_codigo+","+pil_data_nascimento+",'"+pil_uf_naturalidade+"','"+pil_cpf+"','"+pil_nome+"'";
-        String valores = ""+pil_codigo+","+pil_data_nascimento+", '"+pil_uf_naturalidade+"','"+pil_cpf+"','"+pil_nome+"'";
+      
+        String valores = ""+pil_data_nascimento+",'"+pil_uf_naturalidade+"','"+pil_cpf+"','"+pil_nome+"'";
         return this.inserirDados("piloto",valores);        
     }
     
@@ -96,7 +93,7 @@ public class Piloto extends BancoDados implements Serializable {
     {
         //String valores ="nome='"+nome+"'";
      // String valores =  "nome='"+nome+"',cpf='"+cpf+"',email='"+email+"',salariobase="+salariobase+",dataadmissao='"+dataadmissao+"',id_cargo="+id_cargo+",id_empresa="+id_empresa+",id_cidade="+id_cidade+",id_estado="+id_estado+"";
-       String valores = "pil_codigo="+pil_codigo+", pil_data_nascimento="+pil_data_nascimento+", pil_uf_naturalidade='"+pil_uf_naturalidade+"',pil_cpf='"+pil_cpf+"',pil_nome='"+pil_nome+"'"; 
+       String valores = "pil_data_nascimento="+pil_data_nascimento+", pil_uf_naturalidade='"+pil_uf_naturalidade+"',pil_cpf='"+pil_cpf+"',pil_nome='"+pil_nome+"'"; 
        String condicao="pil_codigo="+pil_codigo;
         return this.alterarDados("piloto",valores, condicao);
     }
