@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
+    <h:head>
+        <title>EMPRESAS - Cadastro de EMPRESAS</title>
+      <!--  <p:column rowspan="3">
+            <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
+        </p:column>
+      -->
+      <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
+                    effect="easeInStrong" circular="true" pageLinks="3" itemStyleClass="photo">
+           <p:graphicImage value="IMG/BannerEmpresas_1.jpg" width="100%" height="100%"/>
+            <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="100%"/>
+        </p:carousel>
+    </h:head>
+    <h:body>
+        <h:form>  
+            <p:growl id="messages"/>
+            <p:menubar>
+                <p:menuitem value="Inicio" icon="ui-icon-home" url="faces/index.xhtml"/>
+                <p:submenu label="Estados" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Estados" url="faces/estados.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Cidades" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cidades" url="faces/cidades.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Cargos" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cargos" url="faces/cargos.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Empresas" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Empresas" url="faces/empresas.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Funcionários" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro Funcionários" url="faces/funcionarios.xhtml" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+        <p:panel id="panelcadastro" header="Formulário de Cadastro de Empresas" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Nome Fantasia:"/>
+                    <p:inputText id="nome" value="#{empresaControll.empresa.nome}"
+                                 required="true" requiredMessage="O nome fantasia deve ser preenchido"/>
+                    <p:message for="nome"/>
+                    <p></p>
+
+                    <h:outputText value="Razão Social:"/>
+                    <p:inputText id="razao" value="#{empresaControll.empresa.razao}"
+                                 required="true" requiredMessage="A razão social deve ser preenchida"/>
+                    <p:message for="razao"/>
+                    <p></p>
+
+                    <h:outputText value="CNPJ da Empresa:"/>
+                    <p:inputText id="cnpj" value="#{empresaControll.empresa.cnpj}"
+                                 required="true" requiredMessage="O CNPJ da empresa deve ser preenchido"/>
+                    <p:message for="cnpj"/>
+                    <p></p>
+
+                    <h:outputText value="Telefone:"/>
+                    <p:inputMask id="telefone" value="#{empresaControll.empresa.telefone}" mask="(99) 9999-9999"
+                                 required="true" requiredMessage="O telefone deve ser preenchido"/>
+                    <p:message for="telefone"/>
+                    <p></p>
+
+                    <h:outputText value="Cidade:"/>
+                    <h:selectOneMenu id="id_cidade" value="#{empresaControll.empresa.id_cidade}">
+                        <f:selectItems value="#{cidadeControll.cidade.listarCidade()}"
+                                       var="item" itemLabel= "#{item.nome}"
+                                       itemValue="#{item.id_cidade}"/>    
+                    </h:selectOneMenu>
+                    <h:outputText value="Estado:"/>
+                    <h:selectOneMenu id="id_estado" value="#{empresaControll.empresa.id_estado}">
+                        <f:selectItems value="#{estadoControll.estado.listarEstados()}"
+                                       var="item" itemLabel= "#{item.nome}"
+                                       itemValue="#{item.id_estado}"/>    
+                    </h:selectOneMenu>
+
+                    <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{empresaControll.controllCadastraEmpresa}" icon="ui-icon-disk" ajax="false"/>
+                    <p:commandButton id="alterar" value="Alterar" actionListener="#{empresaControll.controllAlteraEmpresa}" icon="ui-icon-pencil" ajax="false"/>
+                    <h:outputText value=""/> <!--Coloca a mensagem de alterado ou excluido com sucesso na seguda coluna não espaçando demais os campos de texto -->
+                    <h:outputText value="#{empresaControll.mensagem}"/>
+                    <p:growl id="msg" showDetail="true" sticky="true"/>
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:fieldset id="panellistagem" legend="Empresas Cadastradas" toggleable="true">
+            <p:dataTable value="#{empresaControll.dados}" var="l" paginator="true" rows="5">
+                <p:column><h:outputText value="#{l.id_empresa}"/> </p:column>
+                <p:column><h:outputText value="#{l.nome}"/> </p:column>
+                <p:column><h:outputText value="#{l.razao}"/> </p:column>
+                <p:column><h:outputText value="#{l.cnpj}"/> </p:column>
+                <p:column><h:outputText value="#{l.telefone}"/> </p:column>
+                <p:column><h:outputText value="#{l.id_cidade}"/> </p:column>
+                <p:column><h:outputText value="#{l.id_estado}"/> </p:column>
+                <p:column>
+                    <h:form>
+                        <p:commandButton value="Excluir"  icon="ui-icon-trash" ajax="false" action="#{empresaControll.controllExcluiEmpresa}" onclick="if (confirm('Deseja realmente excluir esta empresa?')) {
+                                    return true;
+                                }
+                                return false;"/>
+                    </h:form>
+                </p:column>
+
+                <p:column>
+                    <h:form>
+                        <p:commandButton value="Editar" icon="ui-icon-pencil" ajax="false" action="#{empresaControll.controllEditar}"/>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </h:body>
+    <!--<p:panel id="panelredireciona" header="Menu de Cadastros do Sistema">
+        <h:form>
+            <h:panelGrid columns="4">
+                <p:commandButton icon="ui-icon-disk" action="cidades?faces-redirect=true" value="Cadastro de Cidades"/>
+                <p:commandButton icon="ui-icon-disk" action="estados?faces-redirect=true" value="Cadastro de Estados"/>
+                <p:commandButton icon="ui-icon-disk" action="cargos?faces-redirect=true" value="Cadastro de Cargos"/>            
+                <p:commandButton icon="ui-icon-disk" action="funcionarios?faces-redirect=true" value="Cadastro de Funcionarios"/>
+            </h:panelGrid>
+        </h:form>
+    </p:panel>-->
+</html>

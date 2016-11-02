@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
+
+    <h:head>
+        <title>EMPRESAS - Inicio</title>
+        <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
+                    effect="easeInStrong" circular="true" pageLinks="3" itemStyleClass="photo">
+           <p:graphicImage value="IMG/BannerEmpresas_1.jpg" width="100%" height="100%"/>
+            <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="100%"/>
+        </p:carousel>
+      <!--  <p:column rowspan="3">
+            <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
+        </p:column> -->
+        <h:form>  
+            <p:growl id="messages"/>
+            <p:menubar>
+                <p:menuitem value="Inicio" icon="ui-icon-home" url="faces/index.xhtml"/>
+                <p:submenu label="Estados" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Estados" url="faces/estados.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Cidades" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cidades" url="faces/cidades.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Cargos" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cargos" url="faces/cargos.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Empresas" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Empresas" url="faces/empresas.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Funcionários" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro Funcionários" url="faces/funcionarios.xhtml" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </h:head>
+    <h:body>
+        <p:panel id="panelcadastro" header="Sistema de Cadastro de Empresas">
+              <h4 style="text-align: center">Esse Sistema consiste cadastrar empresas que trabalham com a área de desenvolvimento web, assim trazendo informações de empresas de cada estado e cidade do Rio Grande do Sul.
+Cadastra empresas que tenham Inteligência Digital e que desenvolvem Soluções WEB  com uma metodologia dinâmica de trabalho que corresponde as expectativas do mercado, aplicando novas tecnologias com paixão e criatividade para oferecer ao cliente mais eficiência e qualidade, agregando valor ao seu negócio.</h4>
+            <h4 style="text-align:center">Video explicando sobre o nosso Trabalho</h4>
+            <p:media style="padding-left: 450px" value="http://www.youtube.com/v/KZnUr8lcqjo" width="420" height="315" player="flash"/>
+        </p:panel>
+    </h:body>
+</html>
