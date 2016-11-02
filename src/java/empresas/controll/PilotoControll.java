@@ -25,7 +25,7 @@ import org.primefaces.context.RequestContext;
 @Named("pilotoControll")
 @ManagedBean
 @SessionScoped
-public class PilotoControll {
+public class PilotoControll implements Serializable{
     //atributos da controladora
     private Piloto piloto;
     private String mensagem="";
