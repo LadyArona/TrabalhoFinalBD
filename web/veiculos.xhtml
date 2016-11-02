@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
+    <h:head>
+        <title>Veículos - Cadastro de Veículos</title>
+     <!--   <p:column rowspan="3">
+            <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
+        </p:column>
+     -->
+     <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
+                    effect="easeInStrong" circular="true" pageLinks="3" itemStyleClass="photo">
+           <p:graphicImage value="IMG/BannerEmpresas_1.jpg" width="100%" height="150%"/>
+            <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="150%"/>
+        </p:carousel>
+    </h:head>
+    <h:body>
+        <h:form>  
+            <p:growl id="messages"/>
+            <p:menubar>
+                <p:menuitem value="Inicio" icon="ui-icon-home" url="faces/index.xhtml"/>
+                <p:submenu label="Estados" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Estados" url="faces/estados.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Cidades" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cidades" url="faces/cidades.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Cargos" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cargos" url="faces/cargos.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Empresas" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Empresas" url="faces/empresas.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Funcionários" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro Funcionários" url="faces/funcionarios.xhtml" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+        <p:panel id="panelcadastro" header="Formulário de Cadastro de Veículos" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
+            <h:form>
+                <h:panelGrid columns="2">
+
+                    <h:outputText value="Marca:"/>
+                    <p:inputText id="vei_marca" value="#{veiculoControll.veiculo.vei_marca}"
+                                 required="true" requiredMessage="A marca deve ser preenchida"/>
+                    <p:message for="vei_marca"/>
+                    <p></p>
+
+                    <h:outputText value="Modelo:"/>
+                    <p:inputText id="vei_modelo" value="#{veiculoControll.veiculo.vei_modelo}"
+                                 required="true" requiredMessage="O modelo deve ser preenchido"/>
+                    <p:message for="vei_modelo"/>
+                    <p></p>
+
+                    <h:outputText value="Ano"/>
+                    <p:inputText id="vei_ano" value="#{veiculoControll.veiculo.vei_ano}"
+                                 required="true" requiredMessage="O ano deve ser preenchido"/>
+                    <p:message for="vei_ano"/>
+                    <p></p>
+
+                    <h:outputText value="Velocidade Máxima"/>
+                    <p:inputText id="vei_velocidade_max" value="#{veiculoControll.veiculo.vei_velocidade_max}"
+                                 required="true" requiredMessage="A velocidade Máxima deve ser preenchido"/>
+                    <p:message for="vei_velocidade_max"/>
+                    <p></p>
+                    
+                    <h:outputText value="Placa"/>
+                    <p:inputText id="vei_placa" value="#{veiculoControll.veiculo.vei_placa}"
+                                 required="true" requiredMessage="A placa deve ser preenchido"/>
+                    <p:message for="vei_placa"/>
+                    <p></p>
+                    
+                    <h:outputText value="Código do Piloto"/>
+                    <h:selectOneMenu id="pil_codigo" value="#{veiculoControll.veiculo.pil_codigo}">
+                        <f:selectItems value="#{pilotoControll.piloto.listarPilotos()}"
+                                       var="item" itemLabel= "#{item.pil_codigo}"
+                                       itemValue="#{item.pil_codigo}"/>    
+                    </h:selectOneMenu>
+                    
+                    
+                   
+                    <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{veiculoControll.controllCadastraVeiculos}" icon="ui-icon-disk" ajax="false"/>
+                    <p:commandButton id="alterar" value="Alterar" action="#{veiculoControll.controllAlteraVeiculos}" icon="ui-icon-pencil" ajax="false"/>
+                    <h:outputText value=""/> <!--Coloca a mensagem de alterado ou excluido com sucesso na seguda coluna não espaçando demais os campos de texto -->
+                    <h:outputText value="#{veiculoControll.mensagem}"/>
+                    <p:growl id="msg" showDetail="true" sticky="true"/>
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:fieldset id="panellistagem" legend="Veículos Cadastrados" toggleable="true">
+            <p:dataTable value="#{veiculoControll.dados}" var="v" paginator="true" rows="5">
+                <p:column style="width:60px"><h:outputText value="#{v.vei_codigo}"/> </p:column>
+                <p:column style="width:10%"><h:outputText value="#{v.vei_marca}"/> </p:column>
+                <p:column style="width:10%"><h:outputText value="#{v.vei_modelo}"/> </p:column>
+                <p:column style="width:110px" ><h:outputText value="#{v.vei_ano}"/> </p:column>
+                <p:column style="width:60px"><h:outputText value="#{v.vei_velocidade_max}"/> </p:column>
+                <p:column style="width:110px" ><h:outputText value="#{v.vei_placa}"/> </p:column>
+                <p:column style="width:60px"><h:outputText value="#{v.pil_codigo}"/> </p:column>
+                <p:column>
+                    <h:form>
+                        <p:commandButton  value="Excluir" icon="ui-icon-trash" ajax="false" action="#{veiculoControll.controllExcluiVeiculos}" onclick="if (confirm('Deseja realmente excluir este Veículo?')) {
+                                    return true;
+                                }
+                                return false;"/>
+                    </h:form>
+                </p:column>
+
+                <p:column>
+                    <h:form>
+                        <p:commandButton value="Editar" icon="ui-icon-pencil"  ajax="false" action="#{veiculoControll.controllEditar}"/>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </h:body>
+</html>

@@ -108,21 +108,21 @@ public String cadastraVeiculos()
        }
        return dados;
     }
-    public String alteraPilotos()
+    public String alteraVeiculos()
     {
-        String valores = "'"+vei_marca+"','"+vei_modelo+"',"+vei_ano+","+vei_velocidade_max+",'"+vei_placa+"',"+pil_codigo+"";
+        String valores = "vei_marca='"+vei_marca+"',vei_modelo='"+vei_modelo+"',vei_ano="+vei_ano+",vei_velocidade_max="+vei_velocidade_max+",vei_placa='"+vei_placa+"'";
        String condicao="vei_codigo="+vei_codigo;
         return this.alterarDados("veiculo",valores, condicao);
     }
     
         
-    public String excluiPilotos()
+    public String excluiVeiculos()
     {
         String condicao="vei_codigo="+vei_codigo;
         return this.excluirDados("veiculo", condicao);
     }
     
-    public void listarUmPiloto(String condicao)
+    public void listarUmVeiculo(String condicao)
     {
         try{
             this.listarUm("veiculo", condicao);
