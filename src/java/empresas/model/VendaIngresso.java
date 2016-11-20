@@ -62,7 +62,7 @@ public class VendaIngresso extends BancoDados implements Serializable{
   public String cadastraVendaIngresso()
     {
 
-        String valores = ""+ven_valor+","+ven_quantidade_max+"";
+        String valores = ""+ven_valor+","+ven_quantidade_max+","+cor_codigo+"";
         return this.inserirDados("venda_ingresso",valores);        
     }
     

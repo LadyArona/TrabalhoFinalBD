@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
     <h:head>
-        <title>Venda Ingresso - Cadastro de Vendas De Ingressos</title>
+        <title>Veículos - Cadastro de Equipes</title>
      <!--   <p:column rowspan="3">
             <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
         </p:column>
@@ -42,49 +42,40 @@
                 </p:submenu>
             </p:menubar>
         </h:form>
-        <p:panel id="panelcadastro" header="Formulário de Venda de Ingressos" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
+        <p:panel id="panelcadastro" header="Formulário de Cadastro de Equipes" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
             <h:form>
                 <h:panelGrid columns="2">
 
-                    <h:outputText value="Valor de Ingressos:"/>
-                    <p:inputText id="ven_valor" value="#{vendaIngressoControll.vendaIngresso.ven_valor}"
-                                 required="true" requiredMessage="O valor do inngresso deve ser preenchido"/>
-                    <p:message for="ven_valor"/>
+                    <h:outputText value="Nome:"/>
+                    <p:inputText id="eqp_nome" value="#{equipeControll.equipe.eqp_nome}"
+                                 required="true" requiredMessage="A marca deve ser preenchida"/>
+                    <p:message for="eqp_nome"/>
                     <p></p>
 
-                    <h:outputText value="Quantidade:"/>
-                    <p:inputText id="ven_quantidade_max" value="#{vendaIngressoControll.vendaIngresso.ven_quantidade_max}"
-                                 required="true" requiredMessage="Quantidades de venda deve ser preenchido"/>
-                    <p:message for="ven_quantidade_max"/>
+                    <h:outputText value="Data Formação"/>
+                    <p:inputText id="eqp_data_formacao" value="#{equipeControll.equipe.eqp_data_formacao}"
+                                 required="true" type="date" requiredMessage="O modelo deve ser preenchido"/>
+                    <p:message for="eqp_data_formacao"/>
                     <p></p>
-
-                                       
-                     <h:outputText value="Código da Corrida"/>
-                     <h:selectOneMenu id="cor_codigo" value="#{vendaIngressoControll.vendaIngresso.cor_codigo}">
-                        <f:selectItems value="#{corridaControll.corrida.listarCorridas()}"
-                                       var="item" itemLabel= "#{item.cor_codigo}"
-                                       itemValue="#{item.cor_codigo}"/>    
-                    </h:selectOneMenu>
-
-                                      
-                     <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{vendaIngressoControll.controllCadastraVendaIngressos}" icon="ui-icon-disk" ajax="false"/>
-                     <p:commandButton id="alterar" value="Alterar" action="#{vendaIngressoControll.controllAlteraVendaIngressos}" icon="ui-icon-pencil" ajax="false"/>
+     
+                    
+                   
+                    <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{equipeControll.controllCadastraEquipes}" icon="ui-icon-disk" ajax="false"/>
+                    <p:commandButton id="alterar" value="Alterar" action="#{equipeControll.controllAlteraEquipes}" icon="ui-icon-pencil" ajax="false"/>
                     <h:outputText value=""/> <!--Coloca a mensagem de alterado ou excluido com sucesso na seguda coluna não espaçando demais os campos de texto -->
-                    <h:outputText value="#{vendaIngressoControll.mensagem}"/>
+                    <h:outputText value="#{equipeControll.mensagem}"/>
                     <p:growl id="msg" showDetail="true" sticky="true"/>
                 </h:panelGrid>
             </h:form>
         </p:panel>
-        <p:fieldset id="panellistagem" legend="Venda de Ingressos Cadastrados" toggleable="true">
-            <p:dataTable value="#{vendaIngressoControll.dados}" var="ven" paginator="true" rows="5">
-                <p:column style="width:60px"><h:outputText value="#{ven.ven_codigo}"/> </p:column>
-                <p:column style="width:10%"><h:outputText value="#{ven.ven_valor}"/> </p:column>
-                <p:column style="width:10%"><h:outputText value="#{ven.ven_quantidade_max}"/> </p:column>
-                <p:column style="width:110px" ><h:outputText value="#{ven.cor_codigo}"/> </p:column>
-                               
+        <p:fieldset id="panellistagem" legend="Veículos Cadastrados" toggleable="true">
+            <p:dataTable value="#{equipeControll.dados}" var="e" paginator="true" rows="5">
+                <p:column style="width:60px"><h:outputText value="#{e.eqp_codigo}"/> </p:column>
+                <p:column style="width:10%"><h:outputText value="#{e.eqp_nome}"/> </p:column>
+                <p:column style="width:10%"><h:outputText value="#{e.eqp_data_formacao}"/> </p:column>
                 <p:column>
                     <h:form>
-                        <p:commandButton  value="Excluir" icon="ui-icon-trash" ajax="false" action="#{vendaIngressoControll.controllExcluiVendaIngressos()}" onclick="if (confirm('Deseja realmente excluir esta Venda de Ingresso?')) {
+                        <p:commandButton  value="Excluir" icon="ui-icon-trash" ajax="false" action="#{equipeControll.controllExcluiEquipes}" onclick="if (confirm('Deseja realmente excluir esta Equipe?')) {
                                     return true;
                                 }
                                 return false;"/>
@@ -93,7 +84,7 @@
 
                 <p:column>
                     <h:form>
-                        <p:commandButton value="Editar" icon="ui-icon-pencil"  ajax="false" action="#{vendaIngressoControll.controllEditar}"/>
+                        <p:commandButton value="Editar" icon="ui-icon-pencil"  ajax="false" action="#{equipeControll.controllEditar}"/>
                     </h:form>
                 </p:column>
             </p:dataTable>
