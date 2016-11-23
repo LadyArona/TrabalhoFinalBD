@@ -12,8 +12,8 @@
      -->
      <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
                     effect="easeInStrong" circular="true" pageLinks="3" itemStyleClass="photo">
-           <p:graphicImage value="IMG/BannerEmpresas_1.jpg" width="100%" height="150%"/>
-            <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="150%"/>
+           <p:graphicImage value="IMG/BannerTopo.jpg" width="100%" height="100%"/>
+           <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="100%"/>
         </p:carousel>
     </h:head>
     <h:body>
@@ -21,25 +21,27 @@
             <p:growl id="messages"/>
             <p:menubar>
                 <p:menuitem value="Inicio" icon="ui-icon-home" url="faces/index.xhtml"/>
-                <p:submenu label="Estados" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Estados" url="faces/estados.xhtml" />
+                
+                <p:submenu label="Cadastros" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Veículos" url="faces/veiculos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Equipes" url="faces/equipe.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Pilotos" url="faces/pilotos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinadores" url="faces/patrocinador.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Autodromos" url="faces/autodromo.xhtml" />
                 </p:submenu>
 
-                <p:submenu label="Cidades" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cidades" url="faces/cidades.xhtml" />
+                <p:submenu label="Movimentações" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinios" url="faces/patrocinio.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Campeonatos" url="faces/campeonato.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Corridas" url="faces/corrida.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Corrida nos Campeonatos" url="faces/corridaCampeonato.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Pilotos participantes de Corridas" url="faces/pilotoCorrida.xhtml" />
                 </p:submenu>
 
-                <p:submenu label="Cargos" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cargos" url="faces/cargos.xhtml" />
+                <p:submenu label="Vendas" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Venda de Ingressos" url="faces/vendaIngresso.xhtml" />
                 </p:submenu>
 
-                <p:submenu label="Empresas" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Empresas" url="faces/empresas.xhtml" />
-                </p:submenu>
-
-                <p:submenu label="Funcionários" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro Funcionários" url="faces/funcionarios.xhtml" />
-                </p:submenu>
             </p:menubar>
         </h:form>
         <p:panel id="panelcadastro" header="Formulário de Cadastro de Pilotos" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
@@ -48,7 +50,7 @@
 
                     <h:outputText value="Data de Nascimento do Piloto:"/>
                     <p:inputText id="pil_data_nascimento" value="#{pilotoControll.piloto.pil_data_nascimento}"
-                                 required="true" requiredMessage="A data de nascimento do piloto deve ser preenchido"/>
+                                 required="true" type="date" requiredMessage="A data de nascimento do piloto deve ser preenchido"/>
                     <p:message for="pil_data_nascimento"/>
                     <p></p>
 
@@ -70,6 +72,12 @@
                     <p:message for="pil_nome"/>
                     <p></p>
                    
+                    <h:outputText value="Código da Equipe"/>
+                    <h:selectOneMenu id="eqp_codigo" value="#{pilotoControll.piloto.eqp_codigo}">
+                        <f:selectItems value="#{equipeControll.equipe.listarEquipes()}"
+                                       var="item" itemLabel= "#{item.eqp_codigo}"
+                                       itemValue="#{item.eqp_codigo}"/>    
+                    </h:selectOneMenu>
                     <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{pilotoControll.controllCadastraPilotos}" icon="ui-icon-disk" ajax="false"/>
                     <p:commandButton id="alterar" value="Alterar" action="#{pilotoControll.controllAlteraPilotos}" icon="ui-icon-pencil" ajax="false"/>
                     <h:outputText value=""/> <!--Coloca a mensagem de alterado ou excluido com sucesso na seguda coluna não espaçando demais os campos de texto -->
@@ -84,7 +92,8 @@
                 <p:column style="width:10%"><h:outputText value="#{p.pil_data_nascimento}"/> </p:column>
                 <p:column style="width:10%"><h:outputText value="#{p.pil_uf_naturalidade}"/> </p:column>
                 <p:column style="width:110px" ><h:outputText value="#{p.pil_cpf}"/> </p:column>
-                <p:column style="width:60px"><h:outputText value="#{p.pil_nome}"/> </p:column>
+                <p:column style="width:100px"><h:outputText value="#{p.pil_nome}"/> </p:column>
+                <p:column style="width:30px"><h:outputText value="#{p.eqp_codigo}"/> </p:column>
                
                 <p:column>
                     <h:form>

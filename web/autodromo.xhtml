@@ -6,14 +6,14 @@
       xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
     <h:head>
         <title>Veículos - Cadastro de Autodromos</title>
-     <!--   <p:column rowspan="3">
-            <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
-        </p:column>
-     -->
-     <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
+        <!--   <p:column rowspan="3">
+               <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
+           </p:column>
+        -->
+        <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
                     effect="easeInStrong" circular="true" pageLinks="3" itemStyleClass="photo">
-           <p:graphicImage value="IMG/BannerEmpresas_1.jpg" width="100%" height="150%"/>
-            <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="150%"/>
+            <p:graphicImage value="IMG/BannerTopo.jpg" width="100%" height="100%"/>
+            <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="100%"/>
         </p:carousel>
     </h:head>
     <h:body>
@@ -21,25 +21,27 @@
             <p:growl id="messages"/>
             <p:menubar>
                 <p:menuitem value="Inicio" icon="ui-icon-home" url="faces/index.xhtml"/>
-                <p:submenu label="Estados" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Estados" url="faces/estados.xhtml" />
+
+                <p:submenu label="Cadastros" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Veículos" url="faces/veiculos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Equipes" url="faces/equipe.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Pilotos" url="faces/pilotos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinadores" url="faces/patrocinador.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Autodromos" url="faces/autodromo.xhtml" />
                 </p:submenu>
 
-                <p:submenu label="Cidades" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cidades" url="faces/cidades.xhtml" />
+                <p:submenu label="Movimentações" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinios" url="faces/patrocinio.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Campeonatos" url="faces/campeonato.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Corridas" url="faces/corrida.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Corrida nos Campeonatos" url="faces/corridaCampeonato.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Pilotos participantes de Corridas" url="faces/pilotoCorrida.xhtml" />
                 </p:submenu>
 
-                <p:submenu label="Cargos" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Cargos" url="faces/cargos.xhtml" />
+                <p:submenu label="Vendas" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-pencil" value="Venda de Ingressos" url="faces/vendaIngresso.xhtml" />
                 </p:submenu>
 
-                <p:submenu label="Empresas" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Empresas" url="faces/empresas.xhtml" />
-                </p:submenu>
-
-                <p:submenu label="Funcionários" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro Funcionários" url="faces/funcionarios.xhtml" />
-                </p:submenu>
             </p:menubar>
         </h:form>
         <p:panel id="panelcadastro" header="Formulário de Cadastro de Autodromos" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
@@ -69,7 +71,7 @@
                                  required="true" requiredMessage="A cidade deve ser preenchido"/>
                     <p:message for="aut_cidade"/>
                     <p></p>
-                    
+
                     <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{autodromoControll.controllCadastraAutodromos}" icon="ui-icon-disk" ajax="false"/>
                     <p:commandButton id="alterar" value="Alterar" action="#{autodromoControll.controllAlteraAutodromos}" icon="ui-icon-pencil" ajax="false"/>
                     <h:outputText value=""/> <!--Coloca a mensagem de alterado ou excluido com sucesso na seguda coluna não espaçando demais os campos de texto -->
@@ -83,9 +85,9 @@
                 <p:column style="width:60px"><h:outputText value="#{a.aut_codigo}"/> </p:column>
                 <p:column style="width:10%"><h:outputText value="#{a.aut_descricao}"/> </p:column>
                 <p:column style="width:10%"><h:outputText value="#{a.aut_nome_pista}"/> </p:column>
-                <p:column style="width:110px" ><h:outputText value="#{a.aut_uf}"/> </p:column>
-                <p:column style="width:60px"><h:outputText value="#{a.aut_cidade}"/> </p:column>
-                 <p:column>
+                <p:column style="width:90px" ><h:outputText value="#{a.aut_uf}"/> </p:column>
+                <p:column style="width:90px"><h:outputText value="#{a.aut_cidade}"/> </p:column>
+                <p:column>
                     <h:form>
                         <p:commandButton  value="Excluir" icon="ui-icon-trash" ajax="false" action="#{autodromoControll.controllExcluiAutodromos}" onclick="if (confirm('Deseja realmente excluir este Autodromo?')) {
                                     return true;

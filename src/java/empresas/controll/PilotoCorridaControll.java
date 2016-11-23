@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package empresas.controll;
-
+import empresas.model.PilotoCorrida;
 import java.io.Serializable;
 import java.sql.SQLException;
 import javax.faces.application.FacesMessage;
@@ -14,16 +14,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Named;
-//importa a model
-import empresas.model.Empresa; //maiusculo
 import org.primefaces.context.RequestContext;
-
-@Named("empresaControll")
+/**
+ *
+ * @author dielm
+ */
+@Named("pilotoCorridaControll")
 @ManagedBean
 @SessionScoped
-public class EmpresaControll implements Serializable {
+public class PilotoCorridaControll implements Serializable{
     //atributos da controladora
-    private Empresa empresa;
+    private PilotoCorrida pilotoCorrida;
     private String mensagem="";
     private DataModel dados;
     private Object requestContext;
@@ -32,22 +33,22 @@ public class EmpresaControll implements Serializable {
      * Creates a new instance of LivroControll
      * @throws java.lang.ClassNotFoundException
      */
-    public EmpresaControll() throws ClassNotFoundException {
+    public PilotoCorridaControll() throws ClassNotFoundException {
         //instancia um objeto da classe livro
-        this.empresa = new Empresa(); //livro maiusculo, o segundo
+        this.pilotoCorrida = new PilotoCorrida(); //livro maiusculo, o segundo
         //conecta ao banco de dados
-        this.empresa.conecta();
+        this.pilotoCorrida.conecta();
     }
 
-    public Empresa getEmpresa() { //Livro maiusculo
-        return empresa;
+    public PilotoCorrida getPilotoCorrida() {
+        return pilotoCorrida;
     }
 
-    public void setEmpresa(Empresa empresa) { //Livro maiusculo
-        this.empresa = empresa;
+    public void setPilotoCorrida(PilotoCorrida pilotoCorrida) {
+        this.pilotoCorrida = pilotoCorrida;
     }
 
-    public String getMensagem() {
+     public String getMensagem() {
         return mensagem;
     }
 
@@ -57,8 +58,8 @@ public class EmpresaControll implements Serializable {
 
     public DataModel getDados()throws ClassNotFoundException, SQLException{
         //conecta ao banco de dados
-        this.empresa.conecta();
-        this.dados = new ListDataModel(this.empresa.listarEmpresa());
+        this.pilotoCorrida.conecta();
+        this.dados = new ListDataModel(this.pilotoCorrida.listarPilotoCorrida());
         return dados;
     }
 
@@ -66,22 +67,22 @@ public class EmpresaControll implements Serializable {
         this.dados = dados;
     }
     
-    public void controllCadastraEmpresa()
+    public void controllCadastraPilotoCorrida()
     {
-        this.mensagem = this.empresa.cadastraEmpresa();
+        this.mensagem = this.pilotoCorrida.cadastraPilotoCorrida();
         //dispara uma mensagem para a aplicação
         FacesContext msg = FacesContext.getCurrentInstance();
         //mostrar essa mensagem no componente growl
         msg.addMessage(null, new FacesMessage("Aviso", this.mensagem));
-        this.empresa = new Empresa(); //limpa os dados do javabean
+        this.pilotoCorrida = new PilotoCorrida(); //limpa os dados do javabean
     }
     
-    public void controllExcluiEmpresa() throws ClassNotFoundException
+    public void controllExcluiPilotoCorrida() throws ClassNotFoundException
     {
-         this.empresa = (Empresa) dados.getRowData(); //pega os dados do livro selecionado
+         this.pilotoCorrida = (PilotoCorrida) dados.getRowData(); //pega os dados do livro selecionado
          //conecta ao banco de dados
-         this.empresa.conecta();
-         this.mensagem = this.empresa.excluiEmpresa();
+         this.pilotoCorrida.conecta();
+         this.mensagem = this.pilotoCorrida.excluiPilotoCorrida();
          //gera uma mensagem com uma caixa de dialogo
          FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso", this.mensagem);
          //mostra a caixa de dialogo com msg
@@ -91,18 +92,19 @@ public class EmpresaControll implements Serializable {
     public void controllEditar() throws ClassNotFoundException
     {
         //ele perde conexão quando faz getRowData
-       this.empresa = (Empresa) dados.getRowData(); //ele pega os dados daquela linha e converte os dados  e o formulario recebe os dados 
+       this.pilotoCorrida = (PilotoCorrida) dados.getRowData(); //ele pega os dados daquela linha e converte os dados  e o formulario recebe os dados 
        //conecta ao banco de dados
-       this.empresa.conecta();
+       this.pilotoCorrida.conecta();
     }
     
-    public void controllAlteraEmpresa()
+    public void controllAlteraPilotoCorrida()
     {
-        this.mensagem = this.empresa.alteraEmpresa();
+        this.mensagem = this.pilotoCorrida.alteraPilotoCorrida();
         //dispara uma mensagem para a aplicação
         FacesContext msg = FacesContext.getCurrentInstance();
         //mostrar essa mensagem no componente growl
         msg.addMessage(null, new FacesMessage("Aviso", this.mensagem));
-        this.empresa = new Empresa(); //limpa os dados do javabean
+        this.pilotoCorrida = new PilotoCorrida(); //limpa os dados do javabean
     }
 }
+

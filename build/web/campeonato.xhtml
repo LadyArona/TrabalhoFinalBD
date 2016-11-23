@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
     <h:head>
-        <title>CORRIDAS - Cadastro de Campeonatos</title>
+        <title>Campeonato - Cadastro de Campeonatos</title>
       <!--  <p:column rowspan="3">
             <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
         </p:column>
@@ -13,6 +13,7 @@
       <p:carousel id="slideShow" autoPlayInterval="4000" numVisible="1" 
                     effect="easeInStrong" circular="true" pageLinks="3" itemStyleClass="photo">
            <p:graphicImage value="IMG/BannerTopo.jpg" width="100%" height="100%"/>
+           <p:graphicImage value="IMG/desenv_1.jpg" width="100%" height="100%"/>
         </p:carousel>
     </h:head>
     <h:body>
@@ -20,22 +21,27 @@
             <p:growl id="messages"/>
             <p:menubar>
                 <p:menuitem value="Inicio" icon="ui-icon-home" url="faces/index.xhtml"/>
+                
                 <p:submenu label="Cadastros" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Veiculo" url="faces/veiculos.xhtml" />
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Piloto" url="faces/pilotos.xhtml" />
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinador" url="faces/patrocinador.xhtml" />
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Autodromo" url="faces/autodromos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Veículos" url="faces/veiculos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Equipes" url="faces/equipe.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Pilotos" url="faces/pilotos.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinadores" url="faces/patrocinador.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Autodromos" url="faces/autodromo.xhtml" />
                 </p:submenu>
 
                 <p:submenu label="Movimentações" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Equipe" url="faces/equipes.xhtml" />
-                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocínios" url="faces/equipe_patrocinador.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Patrocinios" url="faces/patrocinio.xhtml" />
                     <p:menuitem icon="ui-icon-pencil" value="Cadastro de Campeonatos" url="faces/campeonato.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Corridas" url="faces/corrida.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Corrida nos Campeonatos" url="faces/corridaCampeonato.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Cadastro de Pilotos participantes de Corridas" url="faces/pilotoCorrida.xhtml" />
                 </p:submenu>
 
                 <p:submenu label="Vendas" icon="ui-icon-document">
-                    <p:menuitem icon="ui-icon-pencil" value="Venda de ingressos" url="faces/venda.xhtml" />
+                    <p:menuitem icon="ui-icon-pencil" value="Venda de Ingressos" url="faces/vendaIngresso.xhtml" />
                 </p:submenu>
+
             </p:menubar>            
         </h:form>
         <p:panel id="panelcadastro" header="Formulário de Cadastro de Campeonatos" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
@@ -59,6 +65,18 @@
                     <p:inputText id="cam_data_final" value="#{campeonatoControll.campeonato.cam_data_final}"
                                  required="true" type="date" requiredMessage="A data de fim do Campeonato deve ser preenchida"/>
                     <p:message for="cam_data_final"/>
+                    <p></p> 
+                    
+                    <h:outputText value="Campeonato Brasileiro:"/>
+                    <p:inputText id="cam_nbr" value="#{campeonatoControll.campeonato.cam_nbr}"
+                                 required="true"  requiredMessage="O campeonato brasileiro deve ser preenchido"/>
+                    <p:message for="cam_nbr"/>
+                    <p></p>  
+                    
+                    <h:outputText value="Campeonato Internacional:"/>
+                    <p:inputText id="cam_iec" value="#{campeonatoControll.campeonato.cam_iec}"
+                                 required="true"  requiredMessage="O campeonato internacional deve ser preenchido"/>
+                    <p:message for="cam_iec"/>
                     <p></p>                     
                     
 
@@ -75,6 +93,9 @@
                 <p:column><h:outputText value="#{l.cam_descricao}"/> </p:column>
                 <p:column><h:outputText value="#{l.cam_data_inicial}"/> </p:column>
                 <p:column><h:outputText value="#{l.cam_data_final}"/> </p:column>
+                <p:column><h:outputText value="#{l.cam_nbr}"/> </p:column>
+                <p:column><h:outputText value="#{l.cam_iec}"/> </p:column>
+                
                 <p:column>
                     <h:form>
                         <p:commandButton value="Excluir" icon="ui-icon-trash" ajax="false" action="#{campeonatoControll.controllExcluiCampeonato}" onclick="if (confirm('Deseja realmente excluir este Campeonato?')) {

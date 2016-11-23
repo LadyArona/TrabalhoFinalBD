@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"> <!--elementos graficos ui-->
     <h:head>
-        <title>Venda Ingresso - Cadastro de Vendas De Ingressos</title>
+        <title>Piloto-Corrida - Cadastro de Piloto Corrida</title>
      <!--   <p:column rowspan="3">
             <p:graphicImage url="IMG/BannerE.jpg" width="100%" height="100%" />
         </p:column>
@@ -44,49 +44,61 @@
 
             </p:menubar>
         </h:form>
-        <p:panel id="panelcadastro" header="Formulário de Venda de Ingressos" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
+        <p:panel id="panelcadastro" header="Formulário de Cadastro  Piloto Corrida" footer="Preencha todos os campos" toggleable="true" closable="true" toggleSpeed="2000" toggleOrientation="horizontal">
             <h:form>
                 <h:panelGrid columns="2">
-
-                    <h:outputText value="Valor de Ingressos:"/>
-                    <p:inputText id="ven_valor" value="#{vendaIngressoControll.vendaIngresso.ven_valor}"
-                                 required="true" requiredMessage="O valor do inngresso deve ser preenchido"/>
-                    <p:message for="ven_valor"/>
-                    <p></p>
-
-                    <h:outputText value="Quantidade:"/>
-                    <p:inputText id="ven_quantidade_max" value="#{vendaIngressoControll.vendaIngresso.ven_quantidade_max}"
-                                 required="true" requiredMessage="Quantidades de venda deve ser preenchido"/>
-                    <p:message for="ven_quantidade_max"/>
-                    <p></p>
-
-                                       
-                     <h:outputText value="Código da Corrida"/>
-                     <h:selectOneMenu id="cor_codigo" value="#{vendaIngressoControll.vendaIngresso.cor_codigo}">
+                    
+                    <h:outputText value="Código do Piloto"/>
+                    <h:selectOneMenu id="pil_codigo" value="#{pilotoCorridaControll.pilotoCorrida.pil_codigo}">
+                        <f:selectItems value="#{pilotoControll.piloto.listarPilotos()}"
+                                       var="item" itemLabel= "#{item.pil_codigo}"
+                                       itemValue="#{item.pil_codigo}"/>    
+                    </h:selectOneMenu>
+                    
+                    <h:outputText value="Código da Corrida:"/>
+                    <h:selectOneMenu id="cor_codigo" value="#{pilotoCorridaControll.pilotoCorrida.cor_codigo}">
                         <f:selectItems value="#{corridaControll.corrida.listarCorridas()}"
                                        var="item" itemLabel= "#{item.cor_codigo}"
                                        itemValue="#{item.cor_codigo}"/>    
                     </h:selectOneMenu>
 
-                                      
-                     <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{vendaIngressoControll.controllCadastraVendaIngressos}" icon="ui-icon-disk" ajax="false"/>
-                     <p:commandButton id="alterar" value="Alterar" action="#{vendaIngressoControll.controllAlteraVendaIngressos}" icon="ui-icon-pencil" ajax="false"/>
+                    <h:outputText value="Posição de largada:"/>
+                    <p:inputText id="pic_posicao_largada" value="#{pilotoCorridaControll.pilotoCorrida.pic_posicao_largada}"
+                                 required="true" requiredMessage="A posição de largada deve ser preenchida"/>
+                    <p:message for="pic_posicao_largada"/>
+                    <p></p>
+
+                    <h:outputText value="Posição de chegada:"/>
+                    <p:inputText id="pic_posicao_chegada" value="#{pilotoCorridaControll.pilotoCorrida.pic_posicao_chegada}"
+                                 required="true" requiredMessage="A posição de chegada deve ser preenchida"/>
+                    <p:message for="pic_posicao_chegada"/>
+                    <p></p>
+
+                    <h:outputText value="Pontuação:"/>
+                    <p:inputText id="pic_pontuacao" value="#{pilotoCorridaControll.pilotoCorrida.pic_pontuacao}"
+                                 required="true" requiredMessage="A pontuação deve ser preenchida"/>
+                    <p:message for="pic_pontuacao"/>
+                    <p></p>
+                            
+                    <p:commandButton id="cadastrar" value="Cadastrar" actionListener="#{pilotoCorridaControll.controllCadastraPilotoCorrida}" icon="ui-icon-disk" ajax="false"/>
+                    <p:commandButton id="alterar" value="Alterar" action="#{pilotoCorridaControll.controllAlteraPilotoCorrida}" icon="ui-icon-pencil" ajax="false"/>
                     <h:outputText value=""/> <!--Coloca a mensagem de alterado ou excluido com sucesso na seguda coluna não espaçando demais os campos de texto -->
-                    <h:outputText value="#{vendaIngressoControll.mensagem}"/>
+                    <h:outputText value="#{pilotoCorridaControll.mensagem}"/>
                     <p:growl id="msg" showDetail="true" sticky="true"/>
                 </h:panelGrid>
             </h:form>
         </p:panel>
-        <p:fieldset id="panellistagem" legend="Venda de Ingressos Cadastrados" toggleable="true">
-            <p:dataTable value="#{vendaIngressoControll.dados}" var="ven" paginator="true" rows="5">
-                <p:column style="width:60px"><h:outputText value="#{ven.ven_codigo}"/> </p:column>
-                <p:column style="width:10%"><h:outputText value="#{ven.ven_valor}"/> </p:column>
-                <p:column style="width:10%"><h:outputText value="#{ven.ven_quantidade_max}"/> </p:column>
-                <p:column style="width:110px" ><h:outputText value="#{ven.cor_codigo}"/> </p:column>
-                               
-                <p:column>
+        <p:fieldset id="panellistagem" legend="Veículos Cadastrados" toggleable="true">
+            <p:dataTable value="#{pilotoCorridaControll.dados}" var="v" paginator="true" rows="5">
+                <p:column style="width:60px"><h:outputText value="#{v.pil_codigo}"/> </p:column>
+                <p:column style="width:10%"><h:outputText value="#{v.cor_codigo}"/> </p:column>
+                <p:column style="width:10%"><h:outputText value="#{v.pic_posicao_largada}"/> </p:column>
+                <p:column style="width:110px" ><h:outputText value="#{v.pic_posicao_chegada}"/> </p:column>
+                <p:column style="width:60px"><h:outputText value="#{v.pic_pontuacao}"/> </p:column>
+                <p:column style="width:110px" ><h:outputText value="#{v.pic_codigo}"/> </p:column>
+              <p:column>
                     <h:form>
-                        <p:commandButton  value="Excluir" icon="ui-icon-trash" ajax="false" action="#{vendaIngressoControll.controllExcluiVendaIngressos()}" onclick="if (confirm('Deseja realmente excluir esta Venda de Ingresso?')) {
+                        <p:commandButton  value="Excluir" icon="ui-icon-trash" ajax="false" action="#{pilotoCorridaControll.controllExcluiPilotoCorrida}" onclick="if (confirm('Deseja realmente excluir este Veículo?')) {
                                     return true;
                                 }
                                 return false;"/>
@@ -95,7 +107,7 @@
 
                 <p:column>
                     <h:form>
-                        <p:commandButton value="Editar" icon="ui-icon-pencil"  ajax="false" action="#{vendaIngressoControll.controllEditar}"/>
+                        <p:commandButton value="Editar" icon="ui-icon-pencil"  ajax="false" action="#{pilotoCorridaControll.controllEditar}"/>
                     </h:form>
                 </p:column>
             </p:dataTable>

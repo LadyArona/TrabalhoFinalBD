@@ -17,10 +17,18 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class CorridaCampeonato extends BancoDados implements Serializable{
+    private int cor_cam_codigo;
     private int cor_codigo;
     private int cam_codigo;
     private int aut_codigo;
-    private int cor_cam_codigo;
+
+    public int getCor_cam_codigo() {
+        return cor_cam_codigo;
+    }
+
+    public void setCor_cam_codigo(int cor_cam_codigo) {
+        this.cor_cam_codigo = cor_cam_codigo;
+    }
 
     public int getCor_codigo() {
         return cor_codigo;
@@ -45,15 +53,7 @@ public class CorridaCampeonato extends BancoDados implements Serializable{
     public void setAut_codigo(int aut_codigo) {
         this.aut_codigo = aut_codigo;
     }
-
-    public int getCor_cam_codigo() {
-        return cor_cam_codigo;
-    }
-
-    public void setCor_cam_codigo(int cor_cam_codigo) {
-        this.cor_cam_codigo = cor_cam_codigo;
-    }
-
+    
     
     public String cadastraCorridaCampeonato()
     {
@@ -69,22 +69,20 @@ public class CorridaCampeonato extends BancoDados implements Serializable{
        while(resultado.next()) //percorre o conjunto de registros
        {
              CorridaCampeonato cc = new CorridaCampeonato();
-
-             cc.setCor_codigo(resultado.getInt(1));
-             cc.setCam_codigo(resultado.getInt(2));       
-             cc.setAut_codigo(resultado.getInt(3));
-             cc.setCor_cam_codigo(resultado.getInt(4));
-             
-             
+             cc.setCor_cam_codigo(resultado.getInt(1));
+             cc.setCor_codigo(resultado.getInt(2));
+             cc.setCam_codigo(resultado.getInt(3));       
+             cc.setAut_codigo(resultado.getInt(4));
+        
              dados.add(cc);
        }
        return dados;
     }
     public String alteraCorridaCampeonato()
     {
-        String valores = ""+cor_codigo+","+cam_codigo+","+aut_codigo+"";
+       String valores = ""+cor_codigo+","+cam_codigo+","+aut_codigo+"";
        String condicao="cor_cam_codigo="+cor_cam_codigo;
-        return this.alterarDados("corrida_campeonato",valores, condicao);
+        return this.alterarDados("corrida_campeonato"+valores+"",valores, condicao);
     }
     
         
@@ -99,13 +97,11 @@ public class CorridaCampeonato extends BancoDados implements Serializable{
         try{
             this.listarUm("corrida_campeonato", condicao);
             resultado.next();   
-
-           cor_codigo = resultado.getInt(1);
-           cam_codigo= resultado.getInt(2);
-           aut_codigo= resultado.getInt(3);
-           cor_cam_codigo= resultado.getInt(4);
-            
-             
+           cor_cam_codigo= resultado.getInt(1);
+           cor_codigo = resultado.getInt(2);
+           cam_codigo= resultado.getInt(3);
+           aut_codigo= resultado.getInt(4);
+     
         }catch(Exception e){ 
         }
    

@@ -37,13 +37,15 @@ public class PatrocinioControll {
         this.patrocinio.conecta();
     }
 
-    public Patrocinio getPatricinio() {
+    public Patrocinio getPatrocinio() {
         return patrocinio;
     }
 
-    public void setPatricinio(Patrocinio patricinio) {
-        this.patrocinio = patricinio;
+    public void setPatrocinio(Patrocinio patrocinio) {
+        this.patrocinio = patrocinio;
     }
+
+    
 
     public String getMensagem() {
         return mensagem;
